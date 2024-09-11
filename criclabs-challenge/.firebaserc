@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "criclabs-challenge",
+    "staging": "criclabs-challenge"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}
