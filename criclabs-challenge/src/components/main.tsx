@@ -133,73 +133,115 @@ function Main() {
 
   return (
     <React.Fragment>
-      <div className="flex flex-col lg:flex-row h-screen">
+      <div className="flex flex-col lg:flex-row h-full w-full">
         {/* Sidebar */}
         <Sidebar />
 
         {/* Content */}
-        <main className="flex-1 p-8 bg-gray-200">
+        <main className="flex-1 p-8 bg-gray-200 overflow-auto">
           <Breadcrumbs />
           <div className="flex flex-col md:flex-row md:justify-between lg:flex-row lg:justify-between mb-5">
             {/* Header Title */}
-            <h1 className="text-2xl font-semibold text-gray-900 justify-items-start">
+            <h1
+              key="h1"
+              className="text-xl md:text-2xl font-semibold text-gray-900 justify-items-start sm: mb-5"
+            >
               Data Mapping
             </h1>
 
-            <div className="flex flex-row">
-              <button className="btn mr-2" onClick={() => setOpenFilter(true)}>
+            <div className="flex flex-wrap justify-start">
+              <button
+                key="b1"
+                className="btn mr-2 mb-2"
+                onClick={() => setOpenFilter(true)}
+              >
                 <i className="material-icons w-6 h-6 md:mr-2 lg:mr-2">
                   filter_list
                 </i>
                 <span className="hidden sm:inline">Filter</span>
               </button>
-              <button className="btn mr-2">
+              <button key="b2" className="btn mr-2 mb-2">
                 <i className="material-icons w-6 h-6 md:mr-2 lg:mr-2">
                   download
                 </i>
                 <span className="hidden sm:inline">Export</span>
               </button>
-              <button className="btn mr-2">
-                <i className="material-icons w-6 h-6 md:mr-2 lg:mr-2 ">
-                  upload
-                </i>
+              <button key="b3" className="btn mr-2 mb-2">
+                <i className="material-icons w-6 h-6 md:mr-2 lg:mr-2">upload</i>
                 <span className="hidden sm:inline">Import</span>
               </button>
               <button
-                className="btn  btn-success text-white"
+                key="b4"
+                className="btn btn-success text-white mb-2"
                 onClick={() => {
                   setOpenNewData(true);
                   setRecord(null);
                 }}
               >
-                <i className="material-icons w-6 h-6 mr-2">add</i>
-                <span>New Data</span>
+                <i className="material-icons w-6 h-6 xs:mr-2">add</i>
+                <span className="hidden xs:inline">New Data</span>
               </button>
             </div>
           </div>
 
-          {/* Tab Data */}
-          <div role="tablist" className="tabs tabs-bordered mb-5">
-            <a role="tab" className="tab tab-active">
-              Data Mapping
+          {/* Tab Data Tablet, Laptop */}
+          <div role="tablist" className="tab tabs-bordered mb-5 invisible md:visible">
+            <a
+              role="tab"
+              className="tab tab-active flex items-center justify-center "
+            >
+              <i className="material-icons w-6 h-6 mr-2">account_tree</i>
+              <span className="hidden xs:inline text-xs md:text-sm xl:text-base">
+                Data Mapping
+              </span>
             </a>
-            <a role="tab" className="tab">
-              Collection Sources
+            <a role="tab" className="tab flex items-center justify-center text-gray-500">
+              <i className="material-icons w-6 h-6 mr-2">article</i>
+              <span className="hidden xs:inline text-xs md:text-sm xl:text-base">
+                Collection Sources
+              </span>
+            </a>
+          </div>
+
+          {/* Tab Data Mobile */}
+          <div role="tablist" className="tabs tabs-bordered mb-5  md:hidden">
+            <a
+              role="tab"
+              className="tab tab-active flex items-center justify-center "
+            >
+              <i className="material-icons w-6 h-6 mr-2">account_tree</i>
+              <span className="hidden xs:inline text-xs md:text-sm xl:text-base">
+                Data Mapping
+              </span>
+            </a>
+            <a role="tab" className="tab flex items-center justify-center text-gray-500">
+              <i className="material-icons w-6 h-6 mr-2">article</i>
+              <span className="hidden xs:inline text-xs md:text-sm xl:text-base">
+                Collection Sources
+              </span>
             </a>
           </div>
 
           <div className="mb-4">
-            <button className="btn border-green-600 text-green-600 btn-sm sm:btn-sm md:btn-md lg:btn-md font-normal mr-2">
+            <button
+              key="1"
+              className="btn border-green-600 text-green-600 btn-sm sm:btn-sm md:btn-md lg:btn-md font-normal mr-2"
+            >
               <i className="material-icons w-6 h-6">edit</i>
               Edit
             </button>
-            <button className="btn btn-sm sm:btn-sm md:btn-md lg:btn-md font-normal ">
+            <button
+              key="2"
+              className="btn btn-sm sm:btn-sm md:btn-md lg:btn-md font-normal "
+            >
               <i className="material-icons w-6 h-6">visibility</i>
               Visualize
             </button>
           </div>
-          <div>
-            <DataTable columns={columns} data={dataMapping} />
+          <div className="flex flex-col h-full">
+            <div className="flex-1">
+              <DataTable columns={columns} data={dataMapping} />
+            </div>
           </div>
 
           {/* New Data Screen */}

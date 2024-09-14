@@ -14,6 +14,12 @@
   }
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
@@ -66,6 +72,14 @@ body {
   scrollbar-width: none; /* สำหรับ Firefox */
 }
 
-.modal-right-1 {
-  @apply lg:fixed inset-0 bg-black bg-opacity-50 flex justify-end z-50;
+.tab .tab-active {
+  border-bottom-color: #00935F !important;
+  color: #000000; /* ข้อความสีดำ */
+  border-bottom-width: 2px;
+}
+
+.tabs .tab-active {
+  border-bottom-color: #00935F !important;
+  color: #000000; /* ข้อความสีดำ */
+  border-bottom-width: 2px;
 }

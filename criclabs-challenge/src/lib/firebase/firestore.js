@@ -7,6 +7,7 @@ import {
   runTransaction,
   where,
   query,
+  orderBy,
 } from "firebase/firestore";
 
 import { db } from "../firebase/clientApp";
@@ -25,12 +26,14 @@ export async function getAllDataMapping() {
   const colRef = collection(db, "data-mapping");
   const colSnap = await getDocs(colRef);
 
-  return colSnap.docs.map((doc) => {
-    return {
-      id: doc.id,
-      ...doc.data(),
-    };
-  });
+  const data = colSnap.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  data.sort((a, b) => a.title.localeCompare(b.title));
+
+  return data;
 }
 
 export async function addDataMapping(data) {
@@ -103,6 +106,8 @@ export async function getDataMappingByFilter(filters) {
         filteredData.push({ id: doc.id, ...data });
       }
     });
+
+    filteredData.sort((a, b) => a.title.localeCompare(b.title));
 
     return filteredData;
   } catch (error) {

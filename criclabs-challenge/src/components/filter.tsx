@@ -55,7 +55,7 @@ function Filter({ setOpenFilter, fetchDataByFilter, fetchDataMapping }: Props) {
 
   return (
     <React.Fragment>
-      <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-end z-50">
+      <div className="fixed pt-16 md:pt-0 inset-0 bg-black bg-opacity-30 flex justify-end z-50">
         <Form
           form={form}
           name="basic"
@@ -63,7 +63,7 @@ function Filter({ setOpenFilter, fetchDataByFilter, fetchDataMapping }: Props) {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
-          className="p-4 bg-white rounded-mb shadow-lg z-50 rounded-none-lg w-screen md:w-2/5 xl:w-1/5"
+          className="p-4 bg-white rounded-mb shadow-lg z-50 rounded-none-lg w-screen md:w-2/5 xl:w-1/5 rounded-t-xl md:rounded-none"
         >
           <div className="flex items-center justify-between">
             <div className="flex flex-row">

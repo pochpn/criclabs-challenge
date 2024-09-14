@@ -3,7 +3,7 @@ import React from "react";
 export default function Sidebar() {
   return (
     <React.Fragment>
-      <nav className="bg-gray-300 text-grey-900 p-4 lg:h-screen lg:w-64 lg:flex-shrink-0">
+      <nav className="bg-gray-300 text-grey-900 p-4 lg:w-64 lg:flex-shrink-0">
         <ul className="flex lg:flex-col space-x-4 lg:space-x-0 lg:space-y-4 overflow-x-auto no-scrollbar lg:overflow-y-auto">
           <li>
             <a href="" className="sidebar-first">
