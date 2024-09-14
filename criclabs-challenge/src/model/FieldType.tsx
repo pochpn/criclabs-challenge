@@ -5,3 +5,10 @@ interface FieldType {
   department?: string;
   dataSubjectType?: string;
 }
+
+
+interface FilterType {
+  title?: string;
+  department?: string;
+  dataSubjectType?: string;
+}

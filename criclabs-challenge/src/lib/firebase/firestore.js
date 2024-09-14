@@ -5,6 +5,8 @@ import {
   updateDoc,
   deleteDoc,
   runTransaction,
+  where,
+  query,
 } from "firebase/firestore";
 
 import { db } from "../firebase/clientApp";
@@ -42,7 +44,6 @@ export async function addDataMapping(data) {
       transaction.update(sequenceRef, { current: newId + 1 });
       transaction.set(doc(colRef, String(newId)), data);
     });
-    console.log("Document added successfully");
   } catch (error) {
     console.error("Error adding document: ", error);
   }
@@ -53,7 +54,6 @@ export async function updateDataMapping(id, data) {
 
   try {
     await updateDoc(docRef, data);
-    console.log("Document updated successfully");
   } catch (error) {
     console.error("Error updating document: ", error);
   }
@@ -64,8 +64,48 @@ export async function deleteDataMapping(id) {
 
   try {
     await deleteDoc(docRef);
-    console.log("Document deleted successfully");
   } catch (error) {
     console.error("Error deleting document: ", error);
+  }
+}
+
+export async function getDataMappingByFilter(filters) {
+  const colRef = collection(db, "data-mapping");
+  let queries = [];
+
+  // Filter department
+  if (filters.department && filters.department.length > 0) {
+    queries.push(where("department", "in", filters.department));
+  }
+
+  // Filter dataSubjectType
+  if (filters.dataSubjectType && filters.dataSubjectType.length > 0) {
+    queries.push(
+      where("dataSubjectType", "array-contains-any", filters.dataSubjectType)
+    );
+  }
+
+  let q = query(colRef, ...queries);
+
+  try {
+    const querySnapshot = await getDocs(q);
+    const filteredData = [];
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+
+      //Filter Title
+      if (filters.title) {
+        if (data.title.toLowerCase().includes(filters.title.toLowerCase())) {
+          filteredData.push({ id: doc.id, ...data });
+        }
+      } else {
+        filteredData.push({ id: doc.id, ...data });
+      }
+    });
+
+    return filteredData;
+  } catch (error) {
+    console.error("Error fetching data mappings: ", error);
   }
 }

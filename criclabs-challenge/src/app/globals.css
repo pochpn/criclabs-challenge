@@ -65,3 +65,7 @@ body {
   -ms-overflow-style: none; /* สำหรับ Internet Explorer และ Edge */
   scrollbar-width: none; /* สำหรับ Firefox */
 }
+
+.modal-right-1 {
+  @apply lg:fixed inset-0 bg-black bg-opacity-50 flex justify-end z-50;
+}

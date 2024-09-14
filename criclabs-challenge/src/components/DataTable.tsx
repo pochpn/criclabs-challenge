@@ -1,80 +1,37 @@
 "use client";
 
-import { deleteDataMapping } from "@/lib/firebase/firestore";
-import { Table, Button, Space } from "antd";
+import { Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 
 interface Props {
-  data: FieldType[];
-  setRecord?: any;
-  setOpen?: any;
-  fetchData?: any;
+  columns: ColumnsType<FieldType>;
+  data?: FieldType[] | undefined;
 }
 
-const DataTable = ({ data, setRecord, fetchData }: Props) => {
-  const columns: ColumnsType<FieldType> = [
-    {
-      title: "Title",
-      dataIndex: "title",
-      key: "title",
-    },
-    {
-      title: "Departments",
-      dataIndex: "department",
-      key: "department",
-    },
-    {
-      title: "Data Subject Type",
-      dataIndex: "dataSubjectType",
-      key: "dataSubjectType",
-    },
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-    },
-    {
-      title: "Action",
-      key: "action",
-      render: (_, record) => (
-        <Space size="middle">
-          <Button
-            style={{
-              border: "none",
-              background: "transparent",
-              padding: 0,
-              cursor: "pointer",
-            }}
-            onClick={() => handleEdit(record)}
-            icon={<span className="material-icons">edit</span>}
-          ></Button>
-          <Button
-            style={{
-              border: "none",
-              background: "transparent",
-              padding: 0,
-              cursor: "pointer",
-            }}
-            onClick={() => handleDelete(record)}
-            icon={<span className="material-icons text-red-600">delete</span>}
-          ></Button>
-        </Space>
-      ),
-    },
-  ];
-
-  const handleEdit = async (record: FieldType) => {
-    await setRecord(record);
-    console.log("Edit record:", record);
+const DataTable = ({ columns, data }: Props) => {
+  const renderSummary = (data?: FieldType[]) => {
+    const total = data?.length;
+    const start = data?.length == 0 ? 0 : 1;
+    const end = total;
+    return `Showing ${start}-${end} of ${total} results`;
   };
 
-  const handleDelete = async (record: FieldType) => {
-    await deleteDataMapping(record.id);
-    fetchData();
-    console.log("Delete record:", record);
-  };
-
-  return <Table columns={columns} dataSource={data} />;
+  return (
+    <Table
+      scroll={{ x: "max-content" }}
+      className="w-full z-0"
+      pagination={false}
+      columns={columns}
+      dataSource={data}
+      summary={() => (
+        <Table.Summary.Row>
+          <Table.Summary.Cell colSpan={columns.length} index={0}>
+            <div className="text-right">{renderSummary(data)}</div>
+          </Table.Summary.Cell>
+        </Table.Summary.Row>
+      )}
+    />
+  );
 };
 
 export default DataTable;
