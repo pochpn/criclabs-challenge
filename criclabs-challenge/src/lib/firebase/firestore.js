@@ -7,7 +7,6 @@ import {
   runTransaction,
   where,
   query,
-  orderBy,
 } from "firebase/firestore";
 
 import { db } from "../firebase/clientApp";
