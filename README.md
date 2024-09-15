@@ -1,9 +1,21 @@
 # criclabs-challenge-pacharaphol
 
-Getting Started
+**Getting Started**
 
-First, run the development server:
+* change directory to \criclabs-challenge\
+  * cd criclabs-challenge
+* install packages
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
 
+* And run the development server:
 ```bash
 npm run dev
 # or
